@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HW6MovieSharingSolution.Data
 {
-    public class AzureADEFRazorPagesDemo2Context : DbContext
+    public class HW6MovieSharingSolutionContext : DbContext
     {
-        public AzureADEFRazorPagesDemo2Context (DbContextOptions<AzureADEFRazorPagesDemo2Context> options)
+        public HW6MovieSharingSolutionContext (DbContextOptions<HW6MovieSharingSolutionContext> options)
             : base(options)
         {
             // This will cause the Database and Tables to be created.

@@ -15619,6 +15619,11 @@
   "RootNamespace": "HW6MovieSharingSolution",
   "Documents": [
     {
+      "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Shared/_LoginPartial.cshtml",
+      "TargetPath": "Pages\\Shared\\_LoginPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Index.cshtml",
       "TargetPath": "Pages\\Index.cshtml",
       "FileKind": "mvc"

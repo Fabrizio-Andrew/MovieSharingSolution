@@ -43,7 +43,7 @@ namespace HW6MovieSharingSolution
                 .AddMvcOptions(options => { })
                 .AddMicrosoftIdentityUI();
 
-            services.AddDbContext<AzureADEFRazorPagesDemo2Context>(options =>
+            services.AddDbContext<HW6MovieSharingSolutionContext>(options =>
                                 options.UseSqlServer(Configuration.GetConnectionString("AzureADEFRazorPagesDemo2Context")));
             services.AddApplicationInsightsTelemetry();
         }
