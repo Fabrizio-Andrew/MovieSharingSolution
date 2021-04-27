@@ -15624,6 +15624,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Movies/Index.cshtml",
+      "TargetPath": "Pages\\Movies\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Index.cshtml",
       "TargetPath": "Pages\\Index.cshtml",
       "FileKind": "mvc"
@@ -15634,8 +15639,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Movies/Details.cshtml",
+      "TargetPath": "Pages\\Movies\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Privacy.cshtml",
       "TargetPath": "Pages\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Movies/Delete.cshtml",
+      "TargetPath": "Pages\\Movies\\Delete.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15649,8 +15664,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Movies/Create.cshtml",
+      "TargetPath": "Pages\\Movies\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Shared/_Layout.cshtml",
       "TargetPath": "Pages\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/fabrizio/HW6MovieSharingSolution/Pages/Movies/Edit.cshtml",
+      "TargetPath": "Pages\\Movies\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {
