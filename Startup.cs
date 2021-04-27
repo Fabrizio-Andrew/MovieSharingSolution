@@ -43,8 +43,8 @@ namespace HW6MovieSharingSolution
                 .AddMvcOptions(options => { })
                 .AddMicrosoftIdentityUI();
 
-            services.AddDbContext<HW6MovieSharingSolutionContext>(options =>
-                                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<HW6MovieSharingSolutionContext>(options =>
+            //                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddApplicationInsightsTelemetry();
 
             services.AddDbContext<MyContext>(options =>

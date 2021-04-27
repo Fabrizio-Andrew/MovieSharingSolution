@@ -13,7 +13,7 @@ namespace HW6MovieSharingSolution.Pages
         /// Gets the context.
         /// </summary>
         /// <value>The context.</value>
-        protected HW6MovieSharingSolutionContext Context { get; }
+        protected MyContext Context { get; }
 
         /// <summary>
         /// The decoded claims
@@ -39,7 +39,7 @@ namespace HW6MovieSharingSolution.Pages
         /// <summary>
         /// Initializes a new instance of the <see cref="BasePageModel"/> class.
         /// </summary>
-        public BasePageModel(HW6MovieSharingSolutionContext context)
+        public BasePageModel(MyContext context)
         {
             Context = context;
         }

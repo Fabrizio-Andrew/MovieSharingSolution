@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Models;
+using HW6MovieSharingSolution.Data;
+
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
