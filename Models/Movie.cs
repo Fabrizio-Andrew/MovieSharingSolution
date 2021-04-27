@@ -14,33 +14,43 @@ namespace HW6MovieSharingSolution.Models
         /// </summary>
         /// <value>The identifier.</value>
         public int ID { get; set; }
+
         /// <summary>
-        /// Gets or sets the user realm identifier.
+        /// Gets or sets the movie title.
         /// </summary>
-        /// <value>The user realm identifier.</value>
-        public string UserRealmId { get; set; }
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        /// <value>The title.</value>
+        /// <value>The movie title.</value>
         public string Title { get; set; }
+
         /// <summary>
-        /// Gets or sets the release date.
+        /// Gets or sets the user movie category.
         /// </summary>
-        /// <value>The release date.</value>
-        [Display(Name = "Release Date")]
-        [DataType(DataType.Date)]
-        public DateTime ReleaseDate { get; set; }
+        /// <value>The user movie category.</value>
+        public string Category { get; set; }
+
         /// <summary>
         /// Gets or sets the genre.
         /// </summary>
         /// <value>The genre.</value>
         public string Genre { get; set; }
+
         /// <summary>
-        /// Gets or sets the price.
+        /// Gets or sets the name of the shared-with user.
         /// </summary>
-        /// <value>The price.</value>
-        [Column(TypeName="decimal(5,2)")]
-        public decimal Price { get; set; }
+        /// <value>The shared-with user's name.</value>
+        public string SharedWithName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email of the shared-with user.
+        /// </summary>
+        /// <value>The shared-with user's email.</value>
+        public string SharedWithEmailAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shared date.
+        /// </summary>
+        /// <value>The shared date.</value>
+        [Display(Name = "Shared Date")]
+        [DataType(DataType.Date)]
+        public DateTime SharedDate { get; set; }
     }
 }
