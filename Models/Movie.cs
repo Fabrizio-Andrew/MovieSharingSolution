@@ -52,5 +52,23 @@ namespace HW6MovieSharingSolution.Models
         [Display(Name = "Shared Date")]
         [DataType(DataType.Date)]
         public DateTime SharedDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the user who requested the movie.
+        /// </summary>
+        /// <value>The requestor's name.</value>
+        public string RequestorName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email of the user who requested the movie.
+        /// </summary>
+        /// <value>The requestor's email.</value>
+        public string RequestorEmail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email of the owner.
+        /// </summary>
+        /// <value>The owner's email.</value>
+        public string OwnerEmailAddress { get; set; }
     }
 }
