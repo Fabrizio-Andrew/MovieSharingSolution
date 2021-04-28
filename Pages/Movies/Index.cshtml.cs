@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Models;
 using HW6MovieSharingSolution.Data;
+using HW6MovieSharingSolution.Pages;
 
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         private readonly HW6MovieSharingSolution.Data.MyContext _context;
 
-        public IndexModel(HW6MovieSharingSolution.Data.MyContext context)
+        public IndexModel(MyContext context) : base(context)
         {
             _context = context;
         }
@@ -24,7 +25,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
         public async Task OnGetAsync()
         {
-            Movie = await _context.Movie.ToListAsync();
+            Movie = await _context.Movie.Where(_ => _.OwnerEmailAddress == AuthenticatedUserInfo.ObjectIdentifier || _.IsSharable == true).ToListAsync();
         }
     }
 }
