@@ -11,7 +11,7 @@ namespace HW6MovieSharingSolution.Models
         /// Gets or sets the UserID.
         /// </summary>
         /// <value>The User's ID.</value>
-        public string UserId { get; set; }
+        public string ID { get; set; }
 
         /// <summary>
         /// Gets or set the Owner indicator.

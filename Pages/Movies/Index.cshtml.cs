@@ -14,7 +14,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
 {
     public class IndexModel : BasePageModel
     {
-        private readonly HW6MovieSharingSolution.Data.MyContext _context;
+        private readonly MyContext _context;
 
         public IndexModel(MyContext context) : base(context)
         {
