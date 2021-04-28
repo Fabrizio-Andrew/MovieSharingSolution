@@ -9950,24 +9950,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/fabrizio/.nuget/packages/": {}
+    "C:\\Users\\Andrew\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/fabrizio/HW6MovieSharingSolution/HW6MovieSharingSolution.csproj",
+      "projectUniqueName": "C:\\Users\\Andrew\\source\\repos\\MovieSharingSolution\\HW6MovieSharingSolution.csproj",
       "projectName": "HW6MovieSharingSolution",
-      "projectPath": "/Users/fabrizio/HW6MovieSharingSolution/HW6MovieSharingSolution.csproj",
-      "packagesPath": "/Users/fabrizio/.nuget/packages/",
-      "outputPath": "/Users/fabrizio/HW6MovieSharingSolution/obj/",
+      "projectPath": "C:\\Users\\Andrew\\source\\repos\\MovieSharingSolution\\HW6MovieSharingSolution.csproj",
+      "packagesPath": "C:\\Users\\Andrew\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Andrew\\source\\repos\\MovieSharingSolution\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/fabrizio/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -10061,7 +10063,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.200/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

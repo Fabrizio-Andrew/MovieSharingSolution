@@ -13,8 +13,9 @@ namespace HW6MovieSharingSolution.Data
         public MyContext (DbContextOptions<MyContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
-        public DbSet<HW6MovieSharingSolution.Models.Movie> Movie { get; set; }
+        public DbSet<Movie> Movie { get; set; }
     }
 }
