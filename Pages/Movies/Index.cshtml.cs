@@ -21,11 +21,22 @@ namespace HW6MovieSharingSolution.Pages.Movies
             _context = context;
         }
 
-        public IList<Movie> Movie { get;set; }
+        public IList<Movie> Movie { get; set; }
+
+        public Role role { get; set; }
 
         public async Task OnGetAsync()
         {
-            Movie = await _context.Movie.Where(_ => _.OwnerId == AuthenticatedUserInfo.ObjectIdentifier || _.IsSharable == true).ToListAsync();
+            role = await _context.Role.SingleOrDefaultAsync(x => x.ID == AuthenticatedUserInfo.ObjectIdentifier);
+
+            if (role.Owner == true)
+            {
+                Movie = await _context.Movie.Where(_ => _.OwnerId == role.ID).ToListAsync();
+            }
+            else
+            {
+                Movie = await _context.Movie.Where(_ => _.IsSharable == true).ToListAsync();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,13 +11,15 @@ using HW6MovieSharingSolution.Models;
 using HW6MovieSharingSolution.Data;
 
 
+
+
 namespace HW6MovieSharingSolution.Pages.Movies
 {
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
         private readonly MyContext _context;
 
-        public EditModel(MyContext context)
+        public EditModel(MyContext context) : base(context)
         {
             _context = context;
         }
@@ -47,6 +50,12 @@ namespace HW6MovieSharingSolution.Pages.Movies
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            // Prevent an unauthorized user from updating the Movie
+            if (Movie.OwnerId != AuthenticatedUserInfo.ObjectIdentifier)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
             _context.Attach(Movie).State = EntityState.Modified;

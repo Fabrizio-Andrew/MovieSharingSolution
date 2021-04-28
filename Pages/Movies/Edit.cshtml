@@ -24,25 +24,25 @@
                 <input asp-for="Movie.Category" class="form-control" />
                 <span asp-validation-for="Movie.Category" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Movie.IsSharable" /> @Html.DisplayNameFor(model => model.Movie.IsSharable)
-                </label>
-            </div>
             <div class="form-group">
                 <label asp-for="Movie.SharedWithName" class="control-label"></label>
-                <input asp-for="Movie.SharedWithName" class="form-control" />
+                <input disabled asp-for="Movie.SharedWithName" class="form-control" />
                 <span asp-validation-for="Movie.SharedWithName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Movie.SharedWithEmailAddress" class="control-label"></label>
-                <input asp-for="Movie.SharedWithEmailAddress" class="form-control" />
+                <input disabled asp-for="Movie.SharedWithEmailAddress" class="form-control" />
                 <span asp-validation-for="Movie.SharedWithEmailAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Movie.SharedDate" class="control-label"></label>
-                <input asp-for="Movie.SharedDate" class="form-control" />
+                <input disabled asp-for="Movie.SharedDate" class="form-control" />
                 <span asp-validation-for="Movie.SharedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.IsSharable" class="control-label"></label>
+                <input asp-for="Movie.IsSharable" class="form-control" />
+                <span asp-validation-for="Movie.IsSharable" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
