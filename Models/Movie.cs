@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,6 +32,7 @@ namespace HW6MovieSharingSolution.Models
         /// Gets or sets the movie's sharable flag.
         /// </summary>
         /// <value>The movie's sharable flag.</value>
+        [DisplayName("Sharable")]
         public bool IsSharable { get; set; }
 
         /// <summary>

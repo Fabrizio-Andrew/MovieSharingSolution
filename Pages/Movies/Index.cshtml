@@ -20,10 +20,10 @@
                 @Html.DisplayNameFor(model => model.Movie[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movie[0].SharedWithName)
+                @Html.DisplayNameFor(model => model.Movie[0].IsSharable)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movie[0].SharedWithEmailAddress)
+                @Html.DisplayNameFor(model => model.Movie[0].SharedWithName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Movie[0].SharedDate)
@@ -41,10 +41,10 @@
                 @Html.DisplayFor(modelItem => item.Category)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SharedWithName)
+                @Html.DisplayFor(modelItem => item.IsSharable)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SharedWithEmailAddress)
+                @Html.DisplayFor(modelItem => item.SharedWithName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SharedDate)
