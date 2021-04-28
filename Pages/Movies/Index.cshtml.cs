@@ -13,9 +13,9 @@ namespace HW6MovieSharingSolution.Pages.Movies
 {
     public class IndexModel : PageModel
     {
-        private readonly MyContext _context;
+        private readonly HW6MovieSharingSolution.Data.MyContext _context;
 
-        public IndexModel(MyContext context)
+        public IndexModel(HW6MovieSharingSolution.Data.MyContext context)
         {
             _context = context;
         }

@@ -28,10 +28,10 @@ namespace HW6MovieSharingSolution.Models
         public string Category { get; set; }
 
         /// <summary>
-        /// Gets or sets the genre.
+        /// Gets or sets the movie's sharable flag.
         /// </summary>
-        /// <value>The genre.</value>
-        public string Genre { get; set; }
+        /// <value>The movie's sharable flag.</value>
+        public bool IsSharable { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the shared-with user.
