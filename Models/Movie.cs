@@ -68,9 +68,9 @@ namespace HW6MovieSharingSolution.Models
         public string RequestorEmail { get; set; }
 
         /// <summary>
-        /// Gets or sets the email of the owner.
+        /// Gets or sets the ID of the owner.
         /// </summary>
-        /// <value>The owner's email.</value>
-        public string OwnerEmailAddress { get; set; }
+        /// <value>The owner's ID.</value>
+        public string OwnerId { get; set; }
     }
 }

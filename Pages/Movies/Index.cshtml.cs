@@ -25,7 +25,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
         public async Task OnGetAsync()
         {
-            Movie = await _context.Movie.Where(_ => _.OwnerEmailAddress == AuthenticatedUserInfo.ObjectIdentifier || _.IsSharable == true).ToListAsync();
+            Movie = await _context.Movie.Where(_ => _.OwnerId == AuthenticatedUserInfo.ObjectIdentifier || _.IsSharable == true).ToListAsync();
         }
     }
 }

@@ -17,5 +17,7 @@ namespace HW6MovieSharingSolution.Data
         }
 
         public DbSet<Movie> Movie { get; set; }
+
+        public DbSet<Role> Role { get; set; }
     }
 }
