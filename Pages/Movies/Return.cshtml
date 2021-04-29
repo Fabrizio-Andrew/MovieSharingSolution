@@ -1,0 +1,66 @@
+﻿@page
+@model HW6MovieSharingSolution.Pages.Movies.ReturnModel
+
+@{
+    ViewData["Title"] = "Return";
+}
+
+<h1>Return</h1>
+
+<h4>Movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Movie.ID" />
+            <div class="form-group">
+                <label asp-for="Movie.Title" class="control-label"></label>
+                <input disabled asp-for="Movie.Title" class="form-control" />
+                <span asp-validation-for="Movie.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.Category" class="control-label"></label>
+                <input disabled asp-for="Movie.Category" class="form-control" />
+                <span asp-validation-for="Movie.Category" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input disabled class="form-check-input" asp-for="Movie.IsSharable" /> @Html.DisplayNameFor(model => model.Movie.IsSharable)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.SharedWithName" class="control-label"></label>
+                <input disabled asp-for="Movie.SharedWithName" class="form-control" />
+                <span asp-validation-for="Movie.SharedWithName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.SharedWithEmailAddress" class="control-label"></label>
+                <input disabled asp-for="Movie.SharedWithEmailAddress" class="form-control" />
+                <span asp-validation-for="Movie.SharedWithEmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.SharedDate" class="control-label"></label>
+                <input disabled asp-for="Movie.SharedDate" class="form-control" />
+                <span asp-validation-for="Movie.SharedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.OwnerId" class="control-label"></label>
+                <input asp-for="Movie.OwnerId" class="form-control" />
+                <span asp-validation-for="Movie.OwnerId" class="text-danger"></span>
+            </div>
+            <input hidden asp-for="Movie.Returned" value="true" />
+            <div class="form-group">
+                <input type="submit" value="Return" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

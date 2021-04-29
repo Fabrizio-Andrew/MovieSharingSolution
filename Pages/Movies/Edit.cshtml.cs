@@ -36,6 +36,12 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
             Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
 
+            // Prevent an unauthorized user from accessing the update page
+            if (Movie.OwnerId != AuthenticatedUserInfo.ObjectIdentifier)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
             if (Movie == null)
             {
                 return NotFound();

@@ -48,12 +48,24 @@ namespace HW6MovieSharingSolution.Models
         public string SharedWithEmailAddress { get; set; }
 
         /// <summary>
+        /// Gets or sets the ID of the shared-with user.
+        /// </summary>
+        /// <value>The shared-with user's ID.</value>
+        public string SharedWithId { get; set; }
+
+        /// <summary>
         /// Gets or sets the shared date.
         /// </summary>
         /// <value>The shared date.</value>
         [Display(Name = "Shared Date")]
         [DataType(DataType.Date)]
         public DateTime SharedDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the returned indicator.
+        /// </summary>
+        /// <value>The returned indicator.</value>
+        public bool Returned { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the user who requested the movie.
@@ -65,7 +77,7 @@ namespace HW6MovieSharingSolution.Models
         /// Gets or sets the email of the user who requested the movie.
         /// </summary>
         /// <value>The requestor's email.</value>
-        public string RequestorEmail { get; set; }
+        public string RequestorId { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the owner.
