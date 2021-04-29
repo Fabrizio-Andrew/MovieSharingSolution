@@ -11,11 +11,11 @@ using HW6MovieSharingSolution.Models;
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
-    public class BorrowApproveModel : PageModel
+    public class BorrowApproveModel : BasePageModel
     {
-        private readonly HW6MovieSharingSolution.Data.MyContext _context;
+        private readonly MyContext _context;
 
-        public BorrowApproveModel(HW6MovieSharingSolution.Data.MyContext context)
+        public BorrowApproveModel(MyContext context) : base(context)
         {
             _context = context;
         }
@@ -39,15 +39,56 @@ namespace HW6MovieSharingSolution.Pages.Movies
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsyncApprove()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            // Move the requestor's data to SharedWith
+            Movie.SharedWithId = Movie.RequestorId;
+            Movie.SharedWithName = Movie.RequestorName;
+            Movie.SharedWithEmailAddress = Movie.RequestorEmail;
+            Movie.RequestorId = null;
+            Movie.RequestorName = null;
+            Movie.RequestorEmail = null;
+
+            // Not sure about this line
+            _context.Attach(Movie).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MovieExists(Movie.ID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("./Index");
+        }
+
+        public async Task<IActionResult> OnPostAsyncDecline()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            
+            // Remove the requestor Data
+            Movie.RequestorId = null;
+            Movie.RequestorName = null;
+            Movie.RequestorEmail = null;
+
+            // Not sure about this line
             _context.Attach(Movie).State = EntityState.Modified;
 
             try

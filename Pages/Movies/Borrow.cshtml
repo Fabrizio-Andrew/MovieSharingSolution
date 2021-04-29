@@ -3,8 +3,11 @@
 
 @{
     ViewData["Title"] = "Borrow";
+    var userEmail = User.FindFirst("preferred_username").Value;
+    var oid = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
 }
 
+<h1>@userEmail</h1>
 <h1>Borrow</h1>
 
 <h4>Movie</h4>
@@ -49,8 +52,9 @@
                 <input disabled asp-for="Movie.OwnerId" class="form-control" />
                 <span asp-validation-for="Movie.OwnerId" class="text-danger"></span>
             </div>
-            <input hidden asp-for="Movie.RequestorId" value=AuthenticatedUserInfo.ObjectIdentifier />
-            <input hidden asp-for="Movie.RequestorName" value=@(User.DisplayName()) />
+            <input hidden asp-for="Movie.RequestorId" value=@oid />
+            <input hidden asp-for="Movie.RequestorName" value=@(User.DisplayName();) />
+            <input hidden asp-for="Movie.RequestorEmail" value=@userEmail />
             <div class="form-group">
                 <input type="submit" value="Borrow" class="btn btn-primary" />
             </div>

@@ -16,38 +16,23 @@
             <input type="hidden" asp-for="Movie.ID" />
             <div class="form-group">
                 <label asp-for="Movie.Title" class="control-label"></label>
-                <input asp-for="Movie.Title" class="form-control" />
+                <input disabled asp-for="Movie.Title" class="form-control" />
                 <span asp-validation-for="Movie.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Movie.Category" class="control-label"></label>
-                <input asp-for="Movie.Category" class="form-control" />
+                <input disabled asp-for="Movie.Category" class="form-control" />
                 <span asp-validation-for="Movie.Category" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Movie.IsSharable" /> @Html.DisplayNameFor(model => model.Movie.IsSharable)
+                    <input disabled class="form-check-input" asp-for="Movie.IsSharable" /> @Html.DisplayNameFor(model => model.Movie.IsSharable)
                 </label>
             </div>
             <div class="form-group">
                 <label asp-for="Movie.SharedWithName" class="control-label"></label>
-                <input asp-for="Movie.SharedWithName" class="form-control" />
+                <input disabled asp-for="Movie.SharedWithName" class="form-control" />
                 <span asp-validation-for="Movie.SharedWithName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Movie.SharedWithEmailAddress" class="control-label"></label>
-                <input asp-for="Movie.SharedWithEmailAddress" class="form-control" />
-                <span asp-validation-for="Movie.SharedWithEmailAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Movie.SharedWithId" class="control-label"></label>
-                <input asp-for="Movie.SharedWithId" class="form-control" />
-                <span asp-validation-for="Movie.SharedWithId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Movie.SharedDate" class="control-label"></label>
-                <input asp-for="Movie.SharedDate" class="form-control" />
-                <span asp-validation-for="Movie.SharedDate" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -56,21 +41,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="Movie.RequestorName" class="control-label"></label>
-                <input asp-for="Movie.RequestorName" class="form-control" />
+                <input disabled asp-for="Movie.RequestorName" class="form-control" />
                 <span asp-validation-for="Movie.RequestorName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Movie.RequestorId" class="control-label"></label>
-                <input asp-for="Movie.RequestorId" class="form-control" />
+                <input disabled asp-for="Movie.RequestorId" class="form-control" />
                 <span asp-validation-for="Movie.RequestorId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Movie.OwnerId" class="control-label"></label>
-                <input asp-for="Movie.OwnerId" class="form-control" />
+                <input disabled asp-for="Movie.OwnerId" class="form-control" />
                 <span asp-validation-for="Movie.OwnerId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Approve" asp-page-handler="Approve" class="btn btn-primary" />
+                <input type="submit" value="Decline" asp-page-handler="Decline" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -31,10 +31,12 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
             if (role.Owner == true)
             {
-                Movie = await _context.Movie.Where(_ => _.OwnerId == role.ID).ToListAsync();
+                // Display all movies to anyone with the "owner" role
+                Movie = await _context.Movie.ToListAsync();
             }
             else
             {
+                // Display only sharable movies to authenticated users without the "owner" role
                 Movie = await _context.Movie.Where(_ => _.IsSharable == true).ToListAsync();
             }
         }

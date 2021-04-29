@@ -74,10 +74,17 @@ namespace HW6MovieSharingSolution.Models
         public string RequestorName { get; set; }
 
         /// <summary>
+        /// Gets or sets the ID of the user who requested the movie.
+        /// </summary>
+        /// <value>The requestor's ID.</value>
+        public string RequestorId { get; set; }
+
+
+        /// <summary>
         /// Gets or sets the email of the user who requested the movie.
         /// </summary>
         /// <value>The requestor's email.</value>
-        public string RequestorId { get; set; }
+        public string RequestorEmail { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the owner.

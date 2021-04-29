@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    var oid = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
 }
 
 <h1>Index</h1>
@@ -50,11 +51,32 @@
                 @Html.DisplayFor(modelItem => item.SharedDate)
             </td>
             <td>
-                @if (Model.role.Owner == true && Model.role.ID == item.OwnerId)
+                @if (Model.role.Owner == true)
                 {
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
                     <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    @if (item.RequestorId != null)
+                    {
+                        <a asp-page="./BorrowApprove" asp-route-id="@item.ID">Approve/Decline Request</a>
+                    }
+                    else if (item.Returned == true)
+                    {
+                        <a asp-page="./ReturnApprove" asp-route-id="@item.ID">Accept Return</a>
+
+                    }
                 }
+                else if (item.IsSharable == true)
+                {
+                    @if (item.SharedWithId == null)
+                    {
+                        <a asp-page="./Borrow" asp-route-id="@item.ID">Borrow</a>
+                    }
+                    else if (item.SharedWithId == oid)
+                    {
+                        <a asp-page="./Return" asp-route-id="@item.ID">Return</a>
+                    }
+                }
+
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a>
 
             </td>

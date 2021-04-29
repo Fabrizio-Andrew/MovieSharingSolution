@@ -11,11 +11,11 @@ using HW6MovieSharingSolution.Models;
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
-    public class ReturnApproveModel : PageModel
+    public class ReturnApproveModel : BasePageModel
     {
-        private readonly HW6MovieSharingSolution.Data.MyContext _context;
+        private readonly MyContext _context;
 
-        public ReturnApproveModel(HW6MovieSharingSolution.Data.MyContext context)
+        public ReturnApproveModel(MyContext context) : base(context)
         {
             _context = context;
         }
