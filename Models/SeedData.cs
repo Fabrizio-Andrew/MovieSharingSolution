@@ -2,9 +2,7 @@ using HW6MovieSharingSolution.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HW6MovieSharingSolution.Models
 {
@@ -16,12 +14,13 @@ namespace HW6MovieSharingSolution.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<MyContext>>()))
             {
-                // Look for any customers.
+                // Look for any Movies.
                 if (context.Movie.Any())
                 {
-                    return;   // DB has been seeded
+                    return;   // DB has already been seeded
                 }
 
+                // Create & Add movies
                 context.Movie.AddRange(
                     new Movie
                     {
@@ -56,6 +55,5 @@ namespace HW6MovieSharingSolution.Models
                 context.SaveChanges();
             }
         }
-
     }
 }

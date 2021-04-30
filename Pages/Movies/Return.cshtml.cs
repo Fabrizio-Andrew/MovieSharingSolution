@@ -1,11 +1,7 @@
-﻿using System;
-using System.Net;
-using System.Collections.Generic;
+﻿using System.Net;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Data;
 using HW6MovieSharingSolution.Models;
@@ -24,6 +20,11 @@ namespace HW6MovieSharingSolution.Pages.Movies
         [BindProperty]
         public Movie Movie { get; set; }
 
+        /// <summary>
+        /// Gets the return page for the specified movie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The return page.</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -46,6 +47,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
+            // Return 404 if movie does not exist
             if (Movie == null)
             {
                 return NotFound();
@@ -53,8 +55,11 @@ namespace HW6MovieSharingSolution.Pages.Movies
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+        /// <summary>
+        /// Sets the movie's Returned attribute to true.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A redirect to the movies list</returns>
         public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
@@ -98,7 +103,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Movies/Index");
         }
 
         private bool MovieExists(int id)

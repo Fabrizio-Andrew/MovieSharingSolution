@@ -1,14 +1,9 @@
-using System;
 using System.Net;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Models;
 using HW6MovieSharingSolution.Data;
-
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
@@ -24,6 +19,11 @@ namespace HW6MovieSharingSolution.Pages.Movies
         [BindProperty]
         public Movie Movie { get; set; }
 
+        /// <summary>
+        /// Gets the delete page for the specified movie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The delete page.</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -40,6 +40,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
             Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
 
+            // Return 404 is movie does not exist.
             if (Movie == null)
             {
                 return NotFound();
@@ -47,6 +48,11 @@ namespace HW6MovieSharingSolution.Pages.Movies
             return Page();
         }
 
+        /// <summary>
+        /// Deletes the specified movie from the DB.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A redirect to the movies list.</returns>
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
@@ -63,13 +69,14 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
             Movie = await _context.Movie.FindAsync(id);
 
+            // Delete the movie
             if (Movie != null)
             {
                 _context.Movie.Remove(Movie);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Movies/Index");
         }
     }
 }

@@ -1,14 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Models;
 using HW6MovieSharingSolution.Data;
-using HW6MovieSharingSolution.Pages;
-
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
@@ -25,6 +20,10 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
         public Role role { get; set; }
 
+        /// <summary>
+        /// Returns the /Movies/Index page with a list of movies based on the user's role.
+        /// </summary>
+        /// <returns>The /Movies/Index page.</returns>
         public async Task OnGetAsync()
         {
             role = await _context.Role.SingleOrDefaultAsync(x => x.ID == AuthenticatedUserInfo.ObjectIdentifier);

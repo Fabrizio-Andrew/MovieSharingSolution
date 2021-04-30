@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Net;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Data;
 using HW6MovieSharingSolution.Models;
@@ -25,6 +22,11 @@ namespace HW6MovieSharingSolution.Pages.Movies
         [BindProperty]
         public Movie Movie { get; set; }
 
+        /// <summary>
+        /// Gets the Borrow page for the specified Movie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The Borrow Page</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -47,15 +49,20 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
+            // Return if Movie does not exist
             if (Movie == null)
             {
                 return NotFound();
             }
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+        /// <summary>
+        /// Updates the Borrow attributes for the specified Movie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A Redirect to the Movie List</returns>
         public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
@@ -83,9 +90,11 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 return NotFound();
             }
 
+            // Get the claims for the authenticated user
             ClaimsPrincipal cp = this.User;
             var claims = cp.Claims.ToList();
 
+            // Update the requestor info based on the user's claims
             movieToUpdate.RequestorName = claims?.FirstOrDefault(x => x.Type.Equals("name", StringComparison.OrdinalIgnoreCase))?.Value;
             movieToUpdate.RequestorEmail = claims?.FirstOrDefault(x => x.Type.Equals("preferred_username", StringComparison.OrdinalIgnoreCase))?.Value;
             movieToUpdate.RequestorId = claims?.FirstOrDefault(x => x.Type.Equals("http://schemas.microsoft.com/identity/claims/objectidentifier", StringComparison.OrdinalIgnoreCase))?.Value;
@@ -108,7 +117,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Movies/Index");
         }
 
 
@@ -116,7 +125,5 @@ namespace HW6MovieSharingSolution.Pages.Movies
         {
             return _context.Movie.Any(e => e.ID == id);
         }
-
-
     }
 }

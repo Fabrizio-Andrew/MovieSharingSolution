@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Data;
 using HW6MovieSharingSolution.Models;
-using HW6MovieSharingSolution.Pages;
 
 namespace HW6MovieSharingSolution.Pages
 {
@@ -23,6 +17,11 @@ namespace HW6MovieSharingSolution.Pages
 
         public Role Role { get; set; }
 
+        /// <summary>
+        /// Creates a Role entity for the user if one does not already exist.
+        /// Redirects the user to the /Movies/Index page.
+        /// </summary>
+        /// <returns>A redirect to the movies list.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             Role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
@@ -41,7 +40,6 @@ namespace HW6MovieSharingSolution.Pages
 
             // Redirect to Movies List
             return RedirectToPage("./Movies/Index");
-
         }
     }
 }

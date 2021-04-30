@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HW6MovieSharingSolution.Models
 {
@@ -59,7 +58,7 @@ namespace HW6MovieSharingSolution.Models
         /// <value>The shared date.</value>
         [Display(Name = "Shared Date")]
         [DataType(DataType.Date)]
-        public DateTime SharedDate { get; set; }
+        public DateTime? SharedDate { get; set; }
 
         /// <summary>
         /// Gets or sets the returned indicator.

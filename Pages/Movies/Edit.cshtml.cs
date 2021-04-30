@@ -1,17 +1,10 @@
-using System;
 using System.Net;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Models;
 using HW6MovieSharingSolution.Data;
-
-
-
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
@@ -27,6 +20,11 @@ namespace HW6MovieSharingSolution.Pages.Movies
         [BindProperty]
         public Movie Movie { get; set; }
 
+        /// <summary>
+        /// Gets the edit page for the specified movie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The edit page.</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -43,6 +41,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
             Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
 
+            // Return 404 if the movie does not exist
             if (Movie == null)
             {
                 return NotFound();
@@ -50,8 +49,11 @@ namespace HW6MovieSharingSolution.Pages.Movies
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+        /// <summary>
+        /// Updates the movie's Title, Category, and IsSharable attributes based on user input.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A redirect to the movies list.</returns>
         public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
@@ -93,7 +95,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
                     }
                 }
 
-                return RedirectToPage("./Index");
+                return RedirectToPage("./Movies/Index");
             }
 
             return Page();

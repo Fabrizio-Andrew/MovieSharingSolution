@@ -1,11 +1,8 @@
 using System;
 using System.Net;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using HW6MovieSharingSolution.Models;
@@ -22,6 +19,10 @@ namespace HW6MovieSharingSolution.Pages.Movies
             _context = context;
         }
 
+        /// <summary>
+        /// Gets a blank Create Page.
+        /// </summary>
+        /// <returns>The Create Page.</returns>
         public async Task<IActionResult> OnGet()
         {
             // Prevent a user without the owner role from accessing this page
@@ -37,7 +38,10 @@ namespace HW6MovieSharingSolution.Pages.Movies
         [BindProperty]
         public Movie Movie { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+        /// <summary>
+        /// Creates a new movie based on client input.
+        /// </summary>
+        /// <returns>A redirect to the movies list.</returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -65,8 +69,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
             _context.Attach(newMovie);
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("./Index");
-
+            return RedirectToPage("..Movies/Index");
         }
     }
 }
