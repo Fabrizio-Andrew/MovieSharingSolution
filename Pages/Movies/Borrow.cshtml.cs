@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Data;
 using HW6MovieSharingSolution.Models;
+using System.Security.Claims;
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
@@ -48,20 +49,34 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            Movie movieToUpdate = await _context.Movie.FindAsync(id);
+
             // Prevent a user from requesting to borrow a movie that is currently shared or not shareable.
-            if (Movie.IsSharable == false || Movie.SharedWithId != null)
+            if (movieToUpdate.IsSharable == false || movieToUpdate.SharedWithId != null)
             {
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
-            _context.Attach(Movie).State = EntityState.Modified;
+            if (movieToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            ClaimsPrincipal cp = this.User;
+            var claims = cp.Claims.ToList();
+
+            movieToUpdate.RequestorName = claims?.FirstOrDefault(x => x.Type.Equals("name", StringComparison.OrdinalIgnoreCase))?.Value;
+            movieToUpdate.RequestorEmail = claims?.FirstOrDefault(x => x.Type.Equals("preferred_username", StringComparison.OrdinalIgnoreCase))?.Value;
+            movieToUpdate.RequestorId = claims?.FirstOrDefault(x => x.Type.Equals("http://schemas.microsoft.com/identity/claims/objectidentifier", StringComparison.OrdinalIgnoreCase))?.Value;
+
+            _context.Attach(movieToUpdate).State = EntityState.Modified;
 
             try
             {
@@ -82,9 +97,12 @@ namespace HW6MovieSharingSolution.Pages.Movies
             return RedirectToPage("./Index");
         }
 
+
         private bool MovieExists(int id)
         {
             return _context.Movie.Any(e => e.ID == id);
         }
+
+
     }
 }

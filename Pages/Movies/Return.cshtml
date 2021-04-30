@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Movie.OwnerId" class="control-label"></label>
-                <input asp-for="Movie.OwnerId" class="form-control" />
+                <input disabled asp-for="Movie.OwnerId" class="form-control" />
                 <span asp-validation-for="Movie.OwnerId" class="text-danger"></span>
             </div>
             <input hidden asp-for="Movie.Returned" value="true" />
