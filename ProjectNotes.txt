@@ -1,0 +1,55 @@
+CSCI E-94 Assignment #6: Movie Sharing
+
+Andrew Fabrizio
+andrewdfabrizio@gmail.com
+
+Published website URL: https://hw6moviesharingsolution20210430105843.azurewebsites.net
+
+Requirements:
+
+GENERAL NOTE:  As per the instructor's guidance, any user with the "Owner" role can create/edit/delete any movie and approve/disapprove borrowers.
+The "owner" role can be self-assigned via the "change role" link in the application header.
+
+1. Create the Movie class Model
+See Movie.cs
+
+Additional fields:
+-"Returned": Boolean indicating if the current borrower has returned the movie
+-"RequestorName": The name of the user requesting to borrow a movie.
+-"RequestorId": The ID of the user requesting to borrow a movie.
+-"RequestorEmail": The email of the user requesting to borrow a movie.
+-"OwnerId": The ID of the movie's owner.
+
+2. Provide the ability for designating movies which can/cannot be shared
+This is managed via the Edit.cshtml Razor page.  
+The link to this page can be found on /Movies/Index ONLY if the user has self-assigned the "owner" role.
+
+3. Allow Authenticated users to view all movies that can be shared
+This is handled on /Movies/Index.  Users with the "owner" role can see all movies.  
+Users without the role can only see sharable movies.
+
+4. Allow authenticated users to request to borrow a movie that is eligible to be shared.
+This is managed on the Borrow.cshtml razor page.  The page is accessible via a link on /Movies/Index if the following criteria are met:
+-The user DOES NOT have the "owner" role
+-The movie is sharable
+-The movie is not currently shared with a user
+
+5. Allow the authenticated owner to approve or decline requests to borrow movies
+This is managed on the BorrowApprove.cshtml razor page. The page is accessible via a link on /Movies/Index if the following criteria are met:
+-The user has the "owner" role
+-The movie's RequestorId attribute is not null
+
+6. Allow the authenticated user who borrowed the movie to return the movies they borrowed
+This is managed on the Return.cshtml razor page. The page is accessible via a link on /Movies/Index if the following criteria are met:
+-The user DOES NOT have the "owner" role
+-The movie is shared with the currently logged-in user
+
+7. Allow the owner of the movie to indicate a movie has been returned
+This is managed on the ReturnApprove.cshtml razor page. The page is accessible via a link on /Movies/Index if the following criteria are met:
+-The user has the "owner" role
+-The movie's "Returned" boolean is set to "true"
+
+8. Allow the owner to see all movies they own, create new movies, update and delete them
+User with an "owner" role can view all movies via /Movies/Index.
+Owners can also Create/Edit/Delete movies via those respective razor pages.  All links to those features can be found on
+/Movies/Index - provided that the user has the "owner" role
