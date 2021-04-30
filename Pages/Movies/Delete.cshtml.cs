@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,11 +12,11 @@ using HW6MovieSharingSolution.Data;
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : BasePageModel
     {
         private readonly MyContext _context;
 
-        public DeleteModel(MyContext context)
+        public DeleteModel(MyContext context) : base(context)
         {
             _context = context;
         }
@@ -28,6 +29,13 @@ namespace HW6MovieSharingSolution.Pages.Movies
             if (id == null)
             {
                 return NotFound();
+            }
+
+            // Prevent a user without the owner role from accessing this page
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
             Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
@@ -44,6 +52,13 @@ namespace HW6MovieSharingSolution.Pages.Movies
             if (id == null)
             {
                 return NotFound();
+            }
+
+            // Prevent a user without the owner role from deleting a movie
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
             Movie = await _context.Movie.FindAsync(id);

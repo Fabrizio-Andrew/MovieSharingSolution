@@ -23,7 +23,7 @@ namespace HW6MovieSharingSolution.Pages
 
         public Role Role { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             Role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
 
@@ -38,6 +38,10 @@ namespace HW6MovieSharingSolution.Pages
                 Context.Role.Add(newRole);
                 Context.SaveChanges();
             }
+
+            // Redirect to Movies List
+            return RedirectToPage("./Movies/Index");
+
         }
     }
 }
