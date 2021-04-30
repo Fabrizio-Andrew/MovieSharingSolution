@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,6 +31,13 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 return NotFound();
             }
 
+            // Prevent a user without the owner role from accessing this page
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
             Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Movie == null)
@@ -41,14 +49,30 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(Movie).State = EntityState.Modified;
+            // Prevent a user without the owner role from accepting a return
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
+            // Get the specified movie entity
+            Movie movieToUpdate = await _context.Movie.FindAsync(id);
+
+            // Accept the returned movie
+            movieToUpdate.Returned = false;
+            movieToUpdate.SharedWithId = null;
+            movieToUpdate.SharedWithName = null;
+            movieToUpdate.SharedWithEmailAddress = null;
+
+            _context.Attach(movieToUpdate).State = EntityState.Modified;
 
             try
             {

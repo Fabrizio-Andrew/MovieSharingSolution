@@ -39,6 +39,13 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
+            // Prevent a user with the owner role from accessing this page
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner == true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
             if (Movie == null)
             {
                 return NotFound();
@@ -48,20 +55,32 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            // Prevent a user from returning the movie unless it is currently shared with them.
-            if (Movie.SharedWithId != AuthenticatedUserInfo.ObjectIdentifier)
+            // Prevent a user with the owner role from accessing this page
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner == true)
             {
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
-            _context.Attach(Movie).State = EntityState.Modified;
+            // Get the specified movie entity
+            Movie movieToUpdate = await _context.Movie.FindAsync(id);
+
+            // Prevent a user from returning the movie unless it is currently shared with them.
+            if (movieToUpdate.SharedWithId != AuthenticatedUserInfo.ObjectIdentifier)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
+            // Return the movie
+            movieToUpdate.Returned = true;
+            _context.Attach(movieToUpdate).State = EntityState.Modified;
 
             try
             {
