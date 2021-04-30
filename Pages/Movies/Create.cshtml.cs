@@ -69,7 +69,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
             _context.Attach(newMovie);
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("..Movies/Index");
+            return RedirectToPage("./Index");
         }
     }
 }

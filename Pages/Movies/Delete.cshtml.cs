@@ -76,7 +76,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Movies/Index");
+            return RedirectToPage("./Index");
         }
     }
 }

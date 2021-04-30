@@ -340,10 +340,8 @@ C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\E
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Movies\Create.cshtml.g.cs
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Movies\Delete.cshtml.g.cs
-C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Movies\Details.cshtml.g.cs
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Movies\Edit.cshtml.g.cs
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Movies\Index.cshtml.g.cs
-C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Privacy.cshtml.g.cs
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Shared\_LoginPartial.cshtml.g.cs
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs

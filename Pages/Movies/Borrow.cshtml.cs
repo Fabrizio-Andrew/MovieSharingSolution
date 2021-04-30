@@ -117,7 +117,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 }
             }
 
-            return RedirectToPage("./Movies/Index");
+            return RedirectToPage("./Index");
         }
 
 
