@@ -381,3 +381,4 @@ C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\M
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Movies\Return.cshtml.g.cs
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Movies\BorrowApprove.cshtml.g.cs
 C:\Users\Andrew\source\repos\MovieSharingSolution\obj\Debug\net5.0\Razor\Pages\Movies\ReturnApprove.cshtml.g.cs
+C:\Users\Andrew\source\repos\MovieSharingSolution\bin\Debug\net5.0\appsettings.Production.json

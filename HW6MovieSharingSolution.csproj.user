@@ -15,5 +15,6 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>True</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>HW6MovieSharingSolution.Data.MyContext</WebStackScaffolding_DbContextTypeFullName>
+    <NameOfLastUsedPublishProfile>HW6MovieSharingSolution20210430105843 - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
