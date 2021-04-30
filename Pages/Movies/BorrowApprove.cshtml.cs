@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,23 +40,31 @@ namespace HW6MovieSharingSolution.Pages.Movies
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsyncApprove()
+        public async Task<IActionResult> OnPostApprove()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            // Move the requestor's data to SharedWith
-            Movie.SharedWithId = Movie.RequestorId;
-            Movie.SharedWithName = Movie.RequestorName;
-            Movie.SharedWithEmailAddress = Movie.RequestorEmail;
-            Movie.RequestorId = null;
-            Movie.RequestorName = null;
-            Movie.RequestorEmail = null;
+            // Prevent a user without the owner role from approving a borrower
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
 
-            // Not sure about this line
-            _context.Attach(Movie).State = EntityState.Modified;
+            Movie movieToUpdate = await _context.Movie.FindAsync(Movie.ID);
+
+            // Move the requestor's data to SharedWith
+            movieToUpdate.SharedWithId = movieToUpdate.RequestorId;
+            movieToUpdate.SharedWithName = movieToUpdate.RequestorName;
+            movieToUpdate.SharedWithEmailAddress = movieToUpdate.RequestorEmail;
+            movieToUpdate.RequestorId = null;
+            movieToUpdate.RequestorName = null;
+            movieToUpdate.RequestorEmail = null;
+
+            _context.Attach(movieToUpdate).State = EntityState.Modified;
 
             try
             {
@@ -76,20 +85,28 @@ namespace HW6MovieSharingSolution.Pages.Movies
             return RedirectToPage("./Index");
         }
 
-        public async Task<IActionResult> OnPostAsyncDecline()
+        public async Task<IActionResult> OnPostDecline()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            
-            // Remove the requestor Data
-            Movie.RequestorId = null;
-            Movie.RequestorName = null;
-            Movie.RequestorEmail = null;
 
-            // Not sure about this line
-            _context.Attach(Movie).State = EntityState.Modified;
+            // Prevent a user without the owner role from declining a borrower
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
+            Movie movieToUpdate = await _context.Movie.FindAsync(Movie.ID);
+
+            // Remove the requestor Data
+            movieToUpdate.RequestorId = null;
+            movieToUpdate.RequestorName = null;
+            movieToUpdate.RequestorEmail = null;
+
+            _context.Attach(movieToUpdate).State = EntityState.Modified;
 
             try
             {

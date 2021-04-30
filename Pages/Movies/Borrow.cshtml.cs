@@ -40,6 +40,13 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
+            // Prevent a user with the owner role from accessing this page
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner == true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
             if (Movie == null)
             {
                 return NotFound();
@@ -60,6 +67,13 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
             // Prevent a user from requesting to borrow a movie that is currently shared or not shareable.
             if (movieToUpdate.IsSharable == false || movieToUpdate.SharedWithId != null)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
+            // Prevent a user with the owner role from requesting to borrow a movie
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner == true)
             {
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }

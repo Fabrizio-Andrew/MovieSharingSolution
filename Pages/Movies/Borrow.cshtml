@@ -3,13 +3,8 @@
 
 @{
     ViewData["Title"] = "Borrow";
-
-    var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
-    var userEmail = User.FindFirst("preferred_username").Value;
-    var oid = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
 }
 
-<h1>@userEmail</h1>
 <h1>Borrow</h1>
 
 <h4>Movie</h4>
