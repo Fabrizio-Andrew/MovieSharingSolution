@@ -1,11 +1,7 @@
-﻿using System;
-using System.Net;
-using System.Collections.Generic;
+﻿using System.Net;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HW6MovieSharingSolution.Data;
 using HW6MovieSharingSolution.Models;
@@ -24,6 +20,11 @@ namespace HW6MovieSharingSolution.Pages.Movies
         [BindProperty]
         public Movie Movie { get; set; }
 
+        /// <summary>
+        /// Gets the Borrow Approval page for the specified Movie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The Borrow Approval Page</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -40,6 +41,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
             Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
 
+            // Return if Movie does not exist
             if (Movie == null)
             {
                 return NotFound();
@@ -47,6 +49,10 @@ namespace HW6MovieSharingSolution.Pages.Movies
             return Page();
         }
 
+        /// <summary>
+        /// Sets the Movie requestor info to the SharedWith attributes and clears requestor attributes.
+        /// </summary>
+        /// <returns>A redirect to the movies list.</returns>
         public async Task<IActionResult> OnPostApprove()
         {
             if (!ModelState.IsValid)
@@ -67,6 +73,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
             movieToUpdate.SharedWithId = movieToUpdate.RequestorId;
             movieToUpdate.SharedWithName = movieToUpdate.RequestorName;
             movieToUpdate.SharedWithEmailAddress = movieToUpdate.RequestorEmail;
+            movieToUpdate.SharedDate = System.DateTime.Now;
             movieToUpdate.RequestorId = null;
             movieToUpdate.RequestorName = null;
             movieToUpdate.RequestorEmail = null;
@@ -89,9 +96,13 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Movies/Index");
         }
 
+        /// <summary>
+        /// Clears the movie requestor attributes.
+        /// </summary>
+        /// <returns>A redirect to the Movies List.</returns>
         public async Task<IActionResult> OnPostDecline()
         {
             if (!ModelState.IsValid)
@@ -131,7 +142,7 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Movies/Index");
         }
 
         private bool MovieExists(int id)
