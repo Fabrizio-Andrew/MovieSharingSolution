@@ -1,26 +1,36 @@
 using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using HW6MovieSharingSolution.Models;
 using HW6MovieSharingSolution.Data;
 
 namespace HW6MovieSharingSolution.Pages.Movies
 {
-    public class CreateModel : PageModel
+    public class CreateModel : BasePageModel
     {
         private readonly MyContext _context;
 
-        public CreateModel(MyContext context)
+        public CreateModel(MyContext context) : base(context)
         {
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            // Prevent a user without the owner role from accessing this page
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
             return Page();
         }
 
@@ -35,10 +45,28 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 return Page();
             }
 
-            _context.Movie.Add(Movie);
-            await _context.SaveChangesAsync();
+            // Prevent a user without the owner role from creating a movie
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
 
+            Movie newMovie = new Movie();
+
+            // Set the OwnerID to the currently authenticated user's ID
+            ClaimsPrincipal cp = this.User;
+            var claims = cp.Claims.ToList();
+            newMovie.OwnerId = claims?.FirstOrDefault(x => x.Type.Equals("http://schemas.microsoft.com/identity/claims/objectidentifier", StringComparison.OrdinalIgnoreCase))?.Value;
+
+            // Set Title/Category/IsSharable attributes from form input
+            await TryUpdateModelAsync<Movie>(newMovie, "Movie", s => s.Title, s => s.Category, s => s.IsSharable);
+
+            _context.Attach(newMovie);
+
+            await _context.SaveChangesAsync();
             return RedirectToPage("./Index");
+
         }
     }
 }

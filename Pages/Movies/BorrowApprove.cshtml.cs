@@ -31,6 +31,13 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 return NotFound();
             }
 
+            // Prevent a user without the owner role from accessing this page
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
+            {
+                return StatusCode((int)HttpStatusCode.Forbidden);
+            }
+
             Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Movie == null)

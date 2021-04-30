@@ -34,13 +34,14 @@ namespace HW6MovieSharingSolution.Pages.Movies
                 return NotFound();
             }
 
-            Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
-
-            // Prevent an unauthorized user from accessing the update page
-            if (Movie.OwnerId != AuthenticatedUserInfo.ObjectIdentifier)
+            // Prevent a user without the owner role from accessing this page
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
             {
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
+
+            Movie = await _context.Movie.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Movie == null)
             {
@@ -51,38 +52,51 @@ namespace HW6MovieSharingSolution.Pages.Movies
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            // Prevent an unauthorized user from updating the Movie
-            if (Movie.OwnerId != AuthenticatedUserInfo.ObjectIdentifier)
+            // Prevent a user without the owner role from editing the movie
+            Role role = await Context.Role.SingleOrDefaultAsync(m => m.ID == AuthenticatedUserInfo.ObjectIdentifier);
+            if (role.Owner != true)
             {
                 return StatusCode((int)HttpStatusCode.Forbidden);
             }
 
-            _context.Attach(Movie).State = EntityState.Modified;
+            // Get the Specified movie Entity
+            var movieToUpdate = await _context.Movie.FindAsync(id);
 
-            try
+            if (movieToUpdate == null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MovieExists(Movie.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            // Update Title, Category, & IsSharable attributes based on form input
+            if (await TryUpdateModelAsync<Movie>(movieToUpdate, "Movie", s => s.Title, s => s.Category, s => s.IsSharable))
+            {
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MovieExists(Movie.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return RedirectToPage("./Index");
+            }
+
+            return Page();
         }
 
         private bool MovieExists(int id)

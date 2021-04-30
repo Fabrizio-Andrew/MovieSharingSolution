@@ -33,54 +33,59 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Movie) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSharable)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SharedWithName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SharedDate)
-            </td>
-            <td>
-                @if (Model.role.Owner == true)
-                {
-                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-                    @if (item.RequestorId != null)
+        @foreach (var item in Model.Movie)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsSharable)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SharedWithName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SharedDate)
+                </td>
+                <td>
+                    @if (Model.role.Owner == true)
                     {
-                        <a asp-page="./BorrowApprove" asp-route-id="@item.ID">Approve/Decline Request</a>
-                    }
-                    else if (item.Returned == true)
-                    {
-                        <a asp-page="./ReturnApprove" asp-route-id="@item.ID">Accept Return</a>
+                        <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
+                        <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                        @if (item.RequestorId != null)
+                        {
+                            <a asp-page="./BorrowApprove" asp-route-id="@item.ID">Approve/Decline Request</a>
+                        }
+                        else if (item.Returned == true)
+                        {
+                            <a asp-page="./ReturnApprove" asp-route-id="@item.ID">Accept Return</a>
 
+                        }
                     }
-                }
-                else if (item.IsSharable == true)
-                {
-                    @if (item.SharedWithId == null)
+                    else if (item.IsSharable == true)
                     {
-                        <a asp-page="./Borrow" asp-route-id="@item.ID">Borrow</a>
+                        @if (item.SharedWithId == null)
+                        {
+                            <a asp-page="./Borrow" asp-route-id="@item.ID">Borrow</a>
+                        }
+                        else if (item.SharedWithId == oid && item.Returned != true)
+                        {
+                            <a asp-page="./Return" asp-route-id="@item.ID">Return</a>
+                        }
                     }
-                    else if (item.SharedWithId == oid)
-                    {
-                        <a asp-page="./Return" asp-route-id="@item.ID">Return</a>
-                    }
-                }
-
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a>
-
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@if (Model.role.Owner == true)
+{
+    <div class="text-center">
+        <a asp-page="./Create">Add a Movie</a>
+    </div>
+}
+
